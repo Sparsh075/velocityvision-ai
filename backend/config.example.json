@@ -1,0 +1,29 @@
+{
+  "tracker": {
+    "iou_threshold": 0.28,
+    "max_age": 30,
+    "min_hits": 3,
+    "high_thresh": 0.42,
+    "low_thresh": 0.10
+  },
+  "ball_tracking": {
+    "max_missing": 8,
+    "max_jump_px": 140.0
+  },
+  "possession": {
+    "owner_radius_m": 2.3,
+    "stability_frames": 6,
+    "pass_cooldown_frames": 12,
+    "pass_min_ball_speed_kmh": 7.0
+  },
+  "speed": {
+    "max_speed_kmh": 40.0,
+    "jitter_epsilon_m": 0.03,
+    "rolling_window_frames": 5
+  },
+  "homography": {
+    "pitch_length_m": 105.0,
+    "pitch_width_m": 68.0,
+    "calibration_env_var": "VELOCITYVISION_CALIBRATION_JSON"
+  }
+}
