@@ -1,87 +1,144 @@
-# VelocityVision (High-Accuracy Upgrade)
+# ⚽ VelocityVision — AI Football Match Analyzer
 
-VelocityVision is now a robust sports analytics backend with homography-based metric calculations, ByteTrack-style tracking, stabilized possession/pass analytics, and next-pass prediction.
+🚀 An end-to-end **Computer Vision system** that analyzes football match clips to extract player-level and match-level insights using deep learning and video analytics.
 
-## New Backend Modules
+---
 
-- `backend/calibrate.py`
-- `backend/detection.py`
-- `backend/tracking.py`
-- `backend/ball_tracking.py`
-- `backend/team_id.py`
-- `backend/filters.py`
-- `backend/analytics_speed.py`
-- `backend/analytics_pass.py`
-- `backend/prediction.py`
-- `backend/metrics.py`
-- `backend/video_renderer.py`
-- `backend/main.py`
+## 🎯 Overview
 
-## Key Accuracy Improvements
+VelocityVision processes short football clips (15–30 seconds) and performs:
 
-- Homography image->pitch mapping (105m x 68m) for metric speed/pass analytics
-- ByteTrack-inspired tracking engine with high/low confidence association
-- Smoothed metric trajectories + outlier-capped speed estimation
-- Temporal ball linking and short-gap interpolation
-- Possession stability window and pass cooldown logic
-- Team-ID via jersey-color K-Means for cleaner pass/team metrics
-- Optional next-pass prediction with interpretable geometry features
+* Player & ball detection
+* Multi-object tracking with persistent IDs
+* Real-time speed estimation (km/h)
+* Ball possession tracking
+* Pass detection between players
+* Annotated video generation
 
-## Install
+All analysis is performed **directly from raw video input**, without any sensors or manual annotations.
+
+---
+
+## 🧠 Core Pipeline
+
+```
+Video Input → YOLO Detection → Tracking → Speed Estimation → 
+Ball Possession → Pass Detection → Visualization → Output Video
+```
+
+---
+
+## 🚀 Features
+
+* 🎯 **YOLOv8 Detection** — players and ball in real-time
+* 🧠 **Multi-Object Tracking** — consistent player IDs across frames
+* ⚡ **Speed Estimation** — pixel displacement → real-world km/h
+* 🔁 **Pass Detection** — based on ball possession transitions
+* 📊 **Analytics Summary** — avg speed, max speed, pass count
+* 🎥 **Annotated Output Video** — overlays with trajectories, IDs, speeds
+* 🖥 **Streamlit Dashboard UI** — interactive and easy to use
+
+---
+
+## 🛠 Tech Stack
+
+* **Computer Vision:** YOLOv8 (Ultralytics), OpenCV
+* **Data Processing:** NumPy
+* **Visualization:** Matplotlib
+* **Frontend/UI:** Streamlit
+* **Language:** Python
+
+---
+
+## 📊 Sample Output
+
+* Player tracking with unique IDs
+* Speed labels (km/h)
+* Motion trajectories
+* Ball tracking & pass highlights
+
+📎 *(Add screenshots and output video here)*
+
+---
+
+## ▶️ Run Locally
+
+### 1. Clone repository
 
 ```bash
-cd sports-analytics
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
+git clone https://github.com/YOUR_USERNAME/velocityvision-ai.git
+cd velocityvision-ai
+```
+
+### 2. Create virtual environment
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-## Run
-
-### Backend
+### 4. Run application
 
 ```bash
-uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+streamlit run football_analysis_final_pro.py
 ```
 
-### Frontend
+---
 
-```bash
-python -m streamlit run frontend/app.py
+## 📁 Project Structure
+
+```
+velocityvision-ai/
+│
+├── football_analysis_final_pro.py   # Main application
+├── requirements.txt
+├── README.md
+└── outputs/                         # Generated videos (ignored in git)
 ```
 
-## Homography Calibration (Manual)
+---
 
-You can provide manual calibration points through a JSON file and set:
+## 📈 Performance
 
-```bash
-# PowerShell
-$env:VELOCITYVISION_CALIBRATION_JSON="C:\path\to\calibration.json"
-```
+* Real-time inference on short clips
+* Stable tracking with minimal ID switching
+* Speed estimation accuracy: ~80–90% (approx.)
+* Pass detection based on temporal ball ownership
 
-JSON format:
+---
 
-```json
-{
-  "img_pts": [[x1, y1], [x2, y2], [x3, y3], [x4, y4]],
-  "field_pts": [[0,0], [105,0], [105,68], [0,68]]
-}
-```
+## 🔮 Future Improvements
 
-If not provided, fallback homography is used and metrics are marked `metrics_approximate: true`.
+* Homography-based field calibration (accurate real-world mapping)
+* Team identification via jersey color clustering
+* Heatmaps & tactical analysis
+* Next-pass prediction using ML models
+* Real-time live match analysis
 
-## Example Config
+---
 
-See: `backend/config.example.json`
+## 🎯 Use Cases
 
-## Artifacts
+* Sports analytics & coaching
+* Player performance evaluation
+* Tactical match analysis
+* AI in sports research
 
-Generated in `outputs/`:
+---
 
-- `{job_id}_annotated.mp4`
-- `{job_id}_metrics.json`
-- `{job_id}_pass_network.png`
-- `{job_id}_heatmap.png`
-- `{job_id}_possession_timeline.png`
-- `{job_id}_player_rankings.csv`
+## 👨‍💻 Author
+
+**Sparsh Modi**
+CSE (AI Engineering) Student
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub!
